@@ -1,0 +1,24 @@
+{% if status %}
+<section class="card">
+    <h2>Robot Status</h2>
+    <p><strong>ID:</strong> {{ status.id }}</p>
+    <p><strong>Position:</strong> X={{ status.position.x }}, Y={{ status.position.y }}</p>
+    <p><strong>Battery:</strong> {{ status.battery }}%</p>
+    <p><strong>Status:</strong> {{ status.status }}</p>
+
+    {% if status.battery <= 15 %}
+        <p class="warning">Low battery warning</p>
+    {% endif %}
+
+    {% if status.status == "STUCK" %}
+        <p class="warning">The robot is stuck.</p>
+    {% endif %}
+</section>
+{% else %}
+<section class="card">
+    <h2>Robot Status</h2>
+    <p class="offline">
+        Robot status is currently unavailable. Attempting to reconnect...
+    </p>
+</section>
+{% endif %}

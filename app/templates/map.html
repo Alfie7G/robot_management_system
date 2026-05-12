@@ -1,0 +1,43 @@
+{% if map and status%}
+<section class="card">
+    <h2>Map</h2>
+
+    <div class="map-wrapper">
+
+        <div class="map-row">
+            <div class="axis-label"></div>
+            {% for x in range(21) %}
+                <div class="axis-label">{{ x }}</div>
+            {% endfor %}
+        </div>
+
+        {% for row in map.grid %}
+            {% set y = loop.index0 %}
+
+            <div class="map-row">
+                <div class="axis-label">{{ y }}</div>
+
+                {% for cell in row %}
+                    {% set x = loop.index0 %}
+
+                    {% if status.position.x == x and status.position.y == y %}
+                        <div class="cell robot">R</div>
+                    {% elif cell == 1 %}
+                        <div class="cell obstacle"></div>
+                    {% else %}
+                        <div class="cell free"></div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+    </div>
+</section>
+{% else %}
+<section class="card">
+    <h2>Map</h2>
+    <p class="offline">
+        Map is currently unavailable. Attempting to reconnect...
+    </p>
+</section>
+{% endif %}
