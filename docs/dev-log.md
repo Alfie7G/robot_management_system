@@ -45,3 +45,25 @@
 ### Evidence:
  - Commit: "Implemented API integration"
  - Commit: "Implemented Dashboard"
+
+
+
+## Day 3:
+
+### Completed:
+- Intergrated SQlit database
+- Completed the dedicated database layer, e.g. 'database.py', 'models.py'
+- Implemented 'CommandLog' database which logs; command type, target coords, the result/success, and the utc timestamp of the action
+- Cleaned up move robotapi and dashboard routes, including the changes made to log actions
+
+### Decisions:
+ - Used sqlite because its lightweight and doesnt require an external database server
+ - timestamps stored in UTC to ensure consitency, avoiding timezone related issues
+
+### Issues:
+ - FIXED: Database tables were created but initially empty. Discovered that previously, the dashboard move route didnt call the correct robot_move_to funciton, which was where the moves get logged,
+ now it calls the correct function that both moves and logs the movements of the robot.
+ -UNFIXED: Currently the database setup only logs movement actions, the robots status, battery etc etc, are not logged, additional logging is required, which there was not time for today
+
+### Evidence:
+ - Commit: "Implemented action logger"

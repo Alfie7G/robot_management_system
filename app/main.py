@@ -4,12 +4,19 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from app.services.services import RobotAPIClient, RobotConnectionError
+from app.database import base, engine, session_local
+from app.models.models import CommandLog
+
 
 app = FastAPI(title="Robot Management System")
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 templates = Jinja2Templates(directory="app/templates")
 robot_client = RobotAPIClient()
+
+#create tables on startup
+base.metadata.create_all(bind=engine)
+
 
 
 @app.get("/")
@@ -49,18 +56,41 @@ def get_robot_sensor_data():
 
 @app.post("/robot/move/{x}/{y}")
 def move_robot_to(x: int, y: int):
+
+    db = session_local()
+    log = CommandLog(
+        command_type = "Move",
+        target_x = x,
+        target_y = y
+    )
     try: 
-        return robot_client.move_robot(x, y)
+        result = robot_client.move_robot(x, y)
+    
+        log.result = "Success"
+        response = result
     except ValueError as error:
-        return {
+        
+        log.result = "Failed"
+ 
+        response = {
             "success": False,
             "error": str(error)
         }
     except RobotConnectionError as error:
-        return {
+
+        log.result ="Failed"
+
+        response = {
             "connection": "offline",
             "error": str(error)
         }
+    finally:
+        db.add(log)
+        db.commit()
+        db.close()
+    
+    return response
+
 
 @app.post("/robot/reset")
 def reset_simulation():
@@ -134,12 +164,8 @@ def dashboard_map(request: Request):
 
 @app.post("/dashboard/move")
 def dashboard_move(x: int = Form(...), y: int = Form(...)):
-    try: 
-        robot_client.move_robot(x, y)
-    except RobotConnectionError:
-        pass
-    except ValueError:
-        pass
+    move_robot_to(x, y)
+
     return RedirectResponse(
         url="/dashboard",
         status_code=303
