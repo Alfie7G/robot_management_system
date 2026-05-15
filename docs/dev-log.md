@@ -68,14 +68,19 @@
  - Commit: "Implemented action logger"
 
  
-## Day 3:
+## Day 4:
 
 ### Completed:
+ - Implemented a 'User' database model, which stores user account info
+ - Implemented password hashing using passlib and bcrypt
+ - Added a registration endpoint
+ - Added validation for duplicate usernames
 
 ### Decisions:
-
+ - Password hashing implemented to avoid storing plaintext sensitive credential, eg passwords
 
 ### Issues:
-
+ - FIXED: Encountered an issue with bcrypt, where the newest version was not compatible with passlib, so swapped to using an older version (4.0.1)
 
 ### Evidence:
+ - Commit: "Implemented user registration and password hashing"
