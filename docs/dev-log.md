@@ -24,7 +24,6 @@
  - Added validation for both coordinate bounds and battery percent
  - Added error handling for robot connection/API errors
  - Confirmed backend works thus far
-
  - Built a server-rendered dashboard, using Jinja templates
  - Added robot status and battery display, including corresponding warnings, interactive movement controls and all the required buttons and sections
  - Implemented a map visualisation, including obstacles, robot positioning and axis labels
@@ -67,3 +66,16 @@
 
 ### Evidence:
  - Commit: "Implemented action logger"
+
+ 
+## Day 3:
+
+### Completed:
+
+### Decisions:
+
+
+### Issues:
+
+
+### Evidence:

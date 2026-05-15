@@ -17,3 +17,15 @@ class CommandLog(base):
     result = Column(String, nullable = False)
 
     timestamp = Column(DateTime, default=lambda: datetime.now(UTC))
+
+
+class User(base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key = True, index = True)
+
+    username = Column(String, unique = True, nullable = False)
+
+    password_hash = Column(String, nullable = False)
+
+    role = Column(String, default = "Viewer")

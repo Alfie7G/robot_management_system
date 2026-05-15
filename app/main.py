@@ -5,7 +5,9 @@ from fastapi.templating import Jinja2Templates
 
 from app.services.services import RobotAPIClient, RobotConnectionError
 from app.database import base, engine, session_local
-from app.models.models import CommandLog
+from app.models.models import CommandLog, User
+from app.auth.security import hash_password
+
 
 
 app = FastAPI(title="Robot Management System")
@@ -16,6 +18,37 @@ robot_client = RobotAPIClient()
 
 #create tables on startup
 base.metadata.create_all(bind=engine)
+
+
+@app.post("/register")
+def register(username: str, password: str):
+
+    db = session_local()
+
+    existing_user = (db.query(User).filter(User.username == username).first())
+
+    if existing_user:
+        db.close()
+
+        return{
+            "success" : False,
+            "error" : "That username already exsists"
+        }
+    
+    new_user = User(username = username, password_hash = hash_password(password))
+
+    db.add(new_user)
+    db.commit()
+    db.close()
+
+    return{
+        "success" : True,
+        "error" : "User registered"
+    }
+
+
+
+
 
 
 
