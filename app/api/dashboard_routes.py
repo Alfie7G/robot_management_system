@@ -13,10 +13,13 @@ robot_client = RobotAPIClient()
 
 @dashboard_router.get("/dashboard")
 def dashboard(request: Request):
+    auth_error = request.session.pop("auth_error", None)
+    auth_success = request.session.pop("auth_success", None)
+
     return templates.TemplateResponse(
         request=request,
         name="dashboard.html",
-        context={"current_user": request.session}
+        context={"current_user": request.session, "auth_error": auth_error, "auth_success": auth_success}
     )
 
 @dashboard_router.get("/connection")

@@ -18,7 +18,13 @@
 
         <section class="card">
             <h2>User Session</h2>
+                {% if auth_error %}
+                    <p class="offline">{{ auth_error }}</p>
+                {% endif %}
 
+                {% if auth_success %}
+                    <p class="online">{{ auth_success }}</p>
+                {% endif %}
             {% if current_user.get("username") %}
                 <p>
                     Logged in as
@@ -32,16 +38,23 @@
                     <button class="secondary" type="submit">Logout</button>
                 </form>
             {% else %}
-                <form method="post" action="/login">
+                <form method="post">
                     <label for="username">Username</label>
                     <input type="text" id="username" name="username" required>
 
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" required>
 
-                    <button type="submit">Login</button>
+                    <button type="submit" formaction="/login">
+                        Login
+                    </button>
+
+                    <button type="submit" formaction="/register" class="secondary">
+                        Register
+                    </button>
                 </form>
             {% endif %}
+
         </section>
 
         <div
