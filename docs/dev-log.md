@@ -95,15 +95,22 @@
  - Modularised architecture further, by refactoring routes into their own route files
  - Create a seperate command services file for helper functions
  - Cleaned up main.py
+ - Fully integrated registration into dashboard UI
+ - Added displayable feedback for login/registration
+ - Added role management for admins, can only be accessed through /docs/admin for role testing
 
 ### Decisions:
  - Reached a point where testing each part of the program with each implementation became too time consuming, and so testing parts of the project automatically helps save time here
  - main.py became over crowded with routes for different aspects of the project, so each was moved into its own corresponding file,
  reflects a better seperation of concerns principle.
+ - Used backend promote/demote routes as backend only, so only admin can promote a users role
 
 ### Issues:
  - FIXED: After changing code structure, the automatic tests imported incorrect file names, and so they failed. Fixed by correcting imports.
+ - FIXED: FastAPI validation error expecting query instead of Form data, fixed by converting route inputs to str = Form(...)
+ - FIXED: Authentication success messages initially constantly stayed on screeen, which was fixed by using request.session.pop()  
 
 ### Evidence:
  - Commit: "Added automatic testing through github"
  - Commit: "Refactored routes and added authentication foundations"
+ - Commit: "Implemented dashboard auth flow and role management"
