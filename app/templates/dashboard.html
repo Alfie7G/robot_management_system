@@ -16,6 +16,33 @@
     <main class="container">
         <h1>Robot Management Dashboard</h1>
 
+        <section class="card">
+            <h2>User Session</h2>
+
+            {% if current_user.get("username") %}
+                <p>
+                    Logged in as
+                    <strong>{{ current_user.get("username") }}</strong>
+                    —
+                    Role:
+                    <strong>{{ current_user.get("role") }}</strong>
+                </p>
+
+                <form method="post" action="/logout">
+                    <button class="secondary" type="submit">Logout</button>
+                </form>
+            {% else %}
+                <form method="post" action="/login">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+
+                    <button type="submit">Login</button>
+                </form>
+            {% endif %}
+        </section>
 
         <div
             hx-get="/connection"
@@ -38,24 +65,31 @@
             </section>
         </div>
 
-        <section class="card">
-            <h2>Move Robot</h2>
-            <form method="post" action="/dashboard/move">
-                <label for="x">X Coordinate</label>
-                <input type="number" id="x" name="x" min="0" max="20" required>
+        {% if current_user.get("role") == "Commander" %}
+            <section class="card">
+                <h2>Move Robot</h2>
+                <form method="post" action="/dashboard/move">
+                    <label for="x">X Coordinate</label>
+                    <input type="number" id="x" name="x" min="0" max="20" required>
 
-                <label for="y">Y Coordinate</label>
-                <input type="number" id="y" name="y" min="0" max="20" required>
+                    <label for="y">Y Coordinate</label>
+                    <input type="number" id="y" name="y" min="0" max="20" required>
 
-                <button type="submit">Move Robot</button>
-            </form>
+                    <button type="submit">Move Robot</button>
+                </form>
 
-            <form method="post" action="/dashboard/reset">
-                <button class="secondary" type="submit">Reset Simulation</button>
-            </form>
-        </section>
-
-
+                <form method="post" action="/dashboard/reset">
+                    <button class="secondary" type="submit">Reset Simulation</button>
+                </form>
+            </section>
+        {% else %}
+            <section class="card">
+                <h2>Robot Controls</h2>
+                <p class="warning">
+                    Commander role required to control the robot.
+                </p>
+            </section>
+        {% endif %}
 
         <div
             hx-get="/map"

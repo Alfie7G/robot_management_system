@@ -62,7 +62,7 @@
 ### Issues:
  - FIXED: Database tables were created but initially empty. Discovered that previously, the dashboard move route didnt call the correct robot_move_to funciton, which was where the moves get logged,
  now it calls the correct function that both moves and logs the movements of the robot.
- -UNFIXED: Currently the database setup only logs movement actions, the robots status, battery etc etc, are not logged, additional logging is required, which there was not time for today
+ - UNFIXED: Currently the database setup only logs movement actions, the robots status, battery etc etc, are not logged, additional logging is required, which there was not time for today
 
 ### Evidence:
  - Commit: "Implemented action logger"
@@ -89,12 +89,21 @@
 
 ### Completed:
  - Added CI/CD automatic testing
+ - Implemented login and logout session handling
+ - Added login and logout corresponding displays
+ - Added persistent storage for user ID, username, and role.
+ - Modularised architecture further, by refactoring routes into their own route files
+ - Create a seperate command services file for helper functions
+ - Cleaned up main.py
 
 ### Decisions:
  - Reached a point where testing each part of the program with each implementation became too time consuming, and so testing parts of the project automatically helps save time here
+ - main.py became over crowded with routes for different aspects of the project, so each was moved into its own corresponding file,
+ reflects a better seperation of concerns principle.
 
 ### Issues:
 
 
 ### Evidence:
  - Commit: "Added automatic testing through github"
+ - Commit: "Refactored routes and added authentication foundations"
