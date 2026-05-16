@@ -102,7 +102,7 @@
  reflects a better seperation of concerns principle.
 
 ### Issues:
-
+ - FIXED: After changing code structure, the automatic tests imported incorrect file names, and so they failed. Fixed by correcting imports.
 
 ### Evidence:
  - Commit: "Added automatic testing through github"

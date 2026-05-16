@@ -1,6 +1,6 @@
 import pytest
 
-from app.services.services import RobotAPIClient
+from app.services.robot_services import RobotAPIClient
 
 
 def test_move_robot_rejects_negative_x_coordinate():
