@@ -84,3 +84,17 @@
 
 ### Evidence:
  - Commit: "Implemented user registration and password hashing"
+
+## Day 5:
+
+### Completed:
+ - Added CI/CD automatic testing
+
+### Decisions:
+ - Reached a point where testing each part of the program with each implementation became too time consuming, and so testing parts of the project automatically helps save time here
+
+### Issues:
+
+
+### Evidence:
+ - Commit: "Added automatic testing through github"
