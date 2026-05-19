@@ -118,10 +118,23 @@
 ## Day 5:
 
 ### Completed:
-
+ - Added and automated tests for coverage of authentication, RBAC, command validation and audit logging
+ - Implemented Docker Compose for both dashboard application and robot simulator
+ - Improved dashboard RBAC behaviour, so that only authenticated users can see past login
+ - Refactored dashboard UI into a multi column layout
+ - Improved audit logging to include username, battery snapshot and robot status snapshot
 
 ### Decisions:
+ - Improved and expanded automated testing to allow for less testing time between code changes/improvements/tweaks, especially as project complexity increased.
+ - Used mock robot responses in testing to ensure tests remain deterministic and work for CI
+ - Reworked dashboard layout to improve usability and readability, making more efficient use of screen space.
 
 ### Issues:
+ - FIXED: Docker containers could not communicate with the robot simulator becuase of incorrect/outdated environment configuration. Fixed by correcting the environment variable names.
+ - FIXED: SQLite database volume mount initially created a folder instead of a file, which was fixed by manually creating the database file before mounting.
+ - FIXED: Docker containers also continued to use an outdated static file, which was fixed by building containers without cache.
+ - FIXED: Dashboard columns overlapped in some places after redisign. Fixed by adjusting column sizing and overflow handling.
+
 
 ### Evidence:
+ - Commit: "Implementation of Docker compose, and Improved audit logging and automated tests"
