@@ -32,7 +32,7 @@
 
  
 ### Decisions:
- -  Chose Jinja + HTMX frontend over something like react due to its reduceded complexity, which allows more focus on backend reliability, architecture and API integration.
+ -  Chose Jinja + HTMX frontend over something like react due to its reduced complexity, which allows more focus on backend reliability, architecture and API integration.
  - HTMX partial rendering was used to keep the dashboard display up to date whilst the robot moves, so the user can see its status and location on the map. Also, because each partial is individually rendered, if a robot connection/API error occurs, that section can be handled on its own, without breaking the whole dashboard.
 
 ### Issues:
@@ -50,14 +50,14 @@
 ## Day 3:
 
 ### Completed:
-- Intergrated SQlit database
+- Integrated SQlit database
 - Completed the dedicated database layer, e.g. 'database.py', 'models.py'
 - Implemented 'CommandLog' database which logs; command type, target coords, the result/success, and the utc timestamp of the action
 - Cleaned up move robotapi and dashboard routes, including the changes made to log actions
 
 ### Decisions:
  - Used sqlite because its lightweight and doesnt require an external database server
- - timestamps stored in UTC to ensure consitency, avoiding timezone related issues
+ - timestamps stored in UTC to ensure consistency, avoiding timezone related issues
 
 ### Issues:
  - FIXED: Database tables were created but initially empty. Discovered that previously, the dashboard move route didnt call the correct robot_move_to funciton, which was where the moves get logged,
@@ -93,7 +93,7 @@
  - Added login and logout corresponding displays
  - Added persistent storage for user ID, username, and role.
  - Modularised architecture further, by refactoring routes into their own route files
- - Create a seperate command services file for helper functions
+ - Create a separate command services file for service-layer helper functions  (execute_robot_move)
  - Cleaned up main.py
  - Fully integrated registration into dashboard UI
  - Added displayable feedback for login/registration
@@ -102,7 +102,7 @@
 ### Decisions:
  - Reached a point where testing each part of the program with each implementation became too time consuming, and so testing parts of the project automatically helps save time here
  - main.py became over crowded with routes for different aspects of the project, so each was moved into its own corresponding file,
- reflects a better seperation of concerns principle.
+ reflects a better separation of concerns principle.
  - Used backend promote/demote routes as backend only, so only admin can promote a users role
 
 ### Issues:
@@ -114,3 +114,14 @@
  - Commit: "Added automatic testing through github"
  - Commit: "Refactored routes and added authentication foundations"
  - Commit: "Implemented dashboard auth flow and role management"
+
+## Day 5:
+
+### Completed:
+
+
+### Decisions:
+
+### Issues:
+
+### Evidence:

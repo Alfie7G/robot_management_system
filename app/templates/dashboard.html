@@ -16,105 +16,104 @@
     <main class="container">
         <h1>Robot Management Dashboard</h1>
 
-        <section class="card">
-            <h2>User Session</h2>
-                {% if auth_error %}
-                    <p class="offline">{{ auth_error }}</p>
+        <div class="dashboard-layout">
+
+            <div class="left-column">
+                <section class="card">
+                    <h2>User Session</h2>
+                        {% if auth_error %}
+                            <p class="offline">{{ auth_error }}</p>
+                        {% endif %}
+
+                        {% if auth_success %}
+                            <p class="online">{{ auth_success }}</p>
+                        {% endif %}
+                        {% if current_user.get("username") %}
+                            <p>
+                                Logged in as
+                                <strong>{{ current_user.get("username") }}</strong>
+                                —
+                                Role:
+                                <strong>{{ current_user.get("role") }}</strong>
+                            </p>
+
+                            <form method="post" action="/logout">
+                                <button class="secondary" type="submit">Logout</button>
+                            </form>
+                        {% else %}
+                        <form method="post">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" name="username" required>
+
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" required>
+
+                            <button type="submit" formaction="/login">
+                                Login
+                            </button>
+
+                            <button type="submit" formaction="/register" class="secondary">
+                                Register
+                            </button>
+                        </form>
+                    {% endif %}
+
+                </section>
+
+                {% if current_user.get("username") %}
+                    
+                    <div
+                        hx-get="/connection"
+                        hx-trigger="load, every 1s"
+                        hx-swap="innerHTML">
+                    </div>                    
+                
+                    <div
+                        hx-get="/status"
+                        hx-trigger="load, every 1s"
+                        hx-swap="innerHTML">
+                    </div>
+
+                </div>
+
+                    <div class="middle-column">
+
+                        <div
+                            hx-get="/map"
+                            hx-trigger="load, every 1s"
+                            hx-swap="innerHTML">
+                        </div>
+                    </div>
+
+                    <div class="right-column">
+                        {% if current_user.get("role") == "Commander" %}
+                            <section class="card">
+                                <h2>Move Robot</h2>
+
+                                <form method="post" action="/dashboard/move">
+                                    <label for="x">X Coordinate</label>
+                                    <input type="number" id="x" name="x" min="0" max="20" required>
+
+                                    <label for="y">Y Coordinate</label>
+                                    <input type="number" id="y" name="y" min="0" max="20" required>
+
+                                    <button type="submit">Move Robot</button>
+                                </form>
+
+                                <form method="post" action="/dashboard/reset">
+                                    <button class="secondary" type="submit">Reset Simulation</button>
+                                </form>
+                            </section>
+                        {% else %}
+                            <section class="card">
+                                <h2>Robot Controls</h2>
+                                <p class="warning">Commander role required to control the robot.</p>
+                            </section>
+                        {% endif %}
+                    </div>
                 {% endif %}
 
-                {% if auth_success %}
-                    <p class="online">{{ auth_success }}</p>
-                {% endif %}
-            {% if current_user.get("username") %}
-                <p>
-                    Logged in as
-                    <strong>{{ current_user.get("username") }}</strong>
-                    —
-                    Role:
-                    <strong>{{ current_user.get("role") }}</strong>
-                </p>
-
-                <form method="post" action="/logout">
-                    <button class="secondary" type="submit">Logout</button>
-                </form>
-            {% else %}
-                <form method="post">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required>
-
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
-
-                    <button type="submit" formaction="/login">
-                        Login
-                    </button>
-
-                    <button type="submit" formaction="/register" class="secondary">
-                        Register
-                    </button>
-                </form>
-            {% endif %}
-
-        </section>
-
-        <div
-            hx-get="/connection"
-            hx-trigger="load, every 1s"
-            hx-swap="innerHTML">
-            <section class="card">
-                <h2>Connection</h2>
-                <p>Loading connection status...</p>
-            </section>
         </div>
-
-
-        <div
-            hx-get="/status"
-            hx-trigger="load, every 1s"
-            hx-swap="innerHTML">
-            <section class="card">
-                <h2>Robot Status</h2>
-                <p>Loading robot status...</p>
-            </section>
-        </div>
-
-        {% if current_user.get("role") == "Commander" %}
-            <section class="card">
-                <h2>Move Robot</h2>
-                <form method="post" action="/dashboard/move">
-                    <label for="x">X Coordinate</label>
-                    <input type="number" id="x" name="x" min="0" max="20" required>
-
-                    <label for="y">Y Coordinate</label>
-                    <input type="number" id="y" name="y" min="0" max="20" required>
-
-                    <button type="submit">Move Robot</button>
-                </form>
-
-                <form method="post" action="/dashboard/reset">
-                    <button class="secondary" type="submit">Reset Simulation</button>
-                </form>
-            </section>
-        {% else %}
-            <section class="card">
-                <h2>Robot Controls</h2>
-                <p class="warning">
-                    Commander role required to control the robot.
-                </p>
-            </section>
-        {% endif %}
-
-        <div
-            hx-get="/map"
-            hx-trigger="load, every 1s"
-            hx-swap="innerHTML">
-            <section class="card">
-                <h2>Map</h2>
-                <p>Loading map...</p>
-            </section>
-        </div>
-
-
     </main>
 </body>
 

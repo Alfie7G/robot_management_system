@@ -1,0 +1,17 @@
+services:
+  robot-simulator:
+    image: ghcr.io/francescodelduchetto/cmp9134_2526_robotsim:latest
+    ports:
+      - "5000:5000"
+
+  robot-dashboard:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      ROBOT_API_URL: "http://robot-simulator:5000"
+      SESSION_SECRET_KEY: "robot-management-system-docker-secret"
+    volumes:
+      - ./robot_management.db:/app/robot_management.db
+    depends_on:
+      - robot-simulator

@@ -4,6 +4,8 @@ from fastapi.templating import Jinja2Templates
 
 from app.services.robot_services import RobotAPIClient, RobotConnectionError
 from app.services.command_services import execute_robot_move
+from app.database import session_local
+from app.models.models import CommandLog
 
 dashboard_router = APIRouter()
 
@@ -81,7 +83,7 @@ def dashboard_move(request: Request, x: int = Form(...), y: int = Form(...)):
             status_code=303
         )
     
-    execute_robot_move(x,y)
+    execute_robot_move(x,y, username=request.session.get("username"))
 
     return RedirectResponse(
         url="/dashboard",

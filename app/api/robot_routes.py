@@ -50,3 +50,7 @@ def reset_simulation():
             "connection": "offline",
             "error": str(error)
         }
+    
+@robot_router.get("/robot/debug-url")
+def debug_robot_url():
+    return {"robot_url": robot_client.base_url}

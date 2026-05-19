@@ -1,12 +1,12 @@
 import httpx
-from app.config import Robot_API_URL, Robot_API_timeout
+from app.config import ROBOT_API_URL, ROBOT_API_TIMEOUT
 
 class RobotConnectionError(Exception):
     pass
 
 class RobotAPIClient:
    
-    def __init__(self, base_url: str = Robot_API_URL):
+    def __init__(self, base_url: str = ROBOT_API_URL):
         self.base_url = base_url.rstrip("/")
     
     def get_status(self) -> dict:
@@ -39,7 +39,7 @@ class RobotAPIClient:
         try:
             response = httpx.get(
                 f"{self.base_url}{endpoint}",
-                timeout=Robot_API_timeout
+                timeout=ROBOT_API_TIMEOUT
             )
             response.raise_for_status()
             return response.json()
@@ -60,7 +60,7 @@ class RobotAPIClient:
             response = httpx.post(
                 f"{self.base_url}{endpoint}",
                 json=json_data,
-                timeout=Robot_API_timeout
+                timeout=ROBOT_API_TIMEOUT
             )
             response.raise_for_status()
             return response.json()
