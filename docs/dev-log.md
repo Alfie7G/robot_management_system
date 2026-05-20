@@ -115,7 +115,7 @@
  - Commit: "Refactored routes and added authentication foundations"
  - Commit: "Implemented dashboard auth flow and role management"
 
-## Day 5:
+## Day 6:
 
 ### Completed:
  - Added and automated tests for coverage of authentication, RBAC, command validation and audit logging
@@ -138,3 +138,24 @@
 
 ### Evidence:
  - Commit: "Implementation of Docker compose, and Improved audit logging and automated tests"
+
+## Day 7:
+
+### Completed:
+ - Added focused code comments
+ - Cleaned up remaining architecture inconsistencies and or naming issues
+ - Redirected Route directly to dashboard interface on app startup
+ - Improved overall code readability
+ - Refactored SQLITE database setup to use a dedicated mounted data directory, instead of mounting the database file directly
+
+### Decisions:
+ - Added comments to ensure code is maintainable for future works
+ - Removed old debugging function that is no longer required, reflects a cleaner deployment state
+ - Chose to mount a decicated data directorey through docker compose rather than mounting the file directly, which prevents docker from incorrectly creating a directory in place of the database file
+
+### Issues:
+ - FIXED: removed any code made redundant, fixed any incorrectly named imports after Docker/Network debugging phase.
+ - FIXED: Docker initially created a directory named 'robot_management.db' on first startup when the file did not already exsist locally. Fixed by restructuring to use a mounted data directory, docker now create a file inside data directory, instead of creating a directory itself.
+
+### Evidence:
+ - Commit: "Final code documentation and maintainability improvements"

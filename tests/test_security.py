@@ -1,7 +1,9 @@
 from app.auth.security import hash_password, verify_password
 
+#Security tests for password hashing and verification
 
 def test_hash_password_does_not_store_plaintext():
+
     password = "Password123"
 
     hashed_password = hash_password(password)
@@ -10,6 +12,7 @@ def test_hash_password_does_not_store_plaintext():
 
 
 def test_verify_password_accepts_correct_password():
+
     password = "Password123"
 
     hashed_password = hash_password(password)
@@ -18,6 +21,7 @@ def test_verify_password_accepts_correct_password():
 
 
 def test_verify_password_rejects_wrong_password():
+    
     password = "Password123"
 
     hashed_password = hash_password(password)

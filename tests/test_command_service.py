@@ -2,8 +2,10 @@ from app.database import session_local
 from app.models.models import CommandLog
 from app.services.command_services import execute_robot_move
 
+#Integration tests for robot command and audit logging
 
 def test_execute_robot_move_creates_command_log(monkeypatch):
+    
     def fake_move_robot(x, y):
         return {"success": True}
 

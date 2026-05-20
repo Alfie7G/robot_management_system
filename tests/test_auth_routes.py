@@ -7,14 +7,17 @@ from app.database import session_local
 from app.models.models import User
 
 
+
+
 client = TestClient(app)
 
-
 def unique_username() -> str:
+
     return f"testuser_{uuid4().hex[:8]}"
 
 
 def test_register_creates_user():
+
     username = unique_username()
 
     response = client.post(
@@ -39,6 +42,7 @@ def test_register_creates_user():
 
 
 def test_register_does_not_create_non_unique_user():
+
     username = unique_username()
 
     client.post(
@@ -68,6 +72,7 @@ def test_register_does_not_create_non_unique_user():
     assert len(users) == 1
 
 def test_login():
+
     username = unique_username()
 
     with TestClient(app) as session_client:
@@ -95,6 +100,7 @@ def test_login():
 
 
 def test_logout():
+    
     username = unique_username()
 
     with TestClient(app) as session_client:

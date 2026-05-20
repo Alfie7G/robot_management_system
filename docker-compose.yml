@@ -12,6 +12,6 @@ services:
       ROBOT_API_URL: "http://robot-simulator:5000"
       SESSION_SECRET_KEY: "robot-management-system-docker-secret"
     volumes:
-      - ./robot_management.db:/app/robot_management.db
+       - ./app/data:/app/app/data
     depends_on:
       - robot-simulator
